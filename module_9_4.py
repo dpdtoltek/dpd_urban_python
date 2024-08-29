@@ -24,7 +24,6 @@ print(first_ball())
 def get_advanced_writer(file_name):
     def write_everything(*date_set):
         file = open(file_name, 'w', encoding='utf-8')
-        # date = (i if isinstance(i, str) else str(i) for i in date_set)
         date = (i for i in date_set)
         for j in date:
             file.write(f'{j}\n')
