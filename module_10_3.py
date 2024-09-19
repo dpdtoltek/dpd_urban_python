@@ -16,11 +16,11 @@ class Bank(Thread):
     def deposit(self):
         while self.trans_deposit > 0:
             deposit_ = randint(50, 500)
+            if bk.balance >= 500 and bk.lock.locked():
+                bk.lock.release()
             bk.balance += deposit_
             self.trans_deposit -= 1
             print(f'Пополнение: {deposit_}. Баланс: {bk.balance}. ')
-            if bk.balance >= 500 and bk.lock.locked():
-                bk.lock.release()
             sleep(0.001)
 
     def take(self):
