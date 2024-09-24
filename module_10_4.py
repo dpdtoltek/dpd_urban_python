@@ -45,7 +45,7 @@ class Cafe:
             print(f'{i.name} в очереди')
 
     def discuss_guests(self):
-        while not self.q.empty() or Table.guest is not None:
+        while not self.q.empty():
             for number, name in Table.tables.items():
                 if name is not None and not Guest(name).is_alive():
                     print(f'{name.name} покушал(-а) и ушёл(ушла)')
@@ -59,6 +59,13 @@ class Cafe:
                         th = Guest(Table.guest)
                         th.start()
                         th.join()
+        else:
+            for number, name in Table.tables.items():
+                if name is not None and not Guest(name).is_alive():
+                    print(f'{name.name} покушал(-а) и ушёл(ушла)')
+                    print(f'Стол номер {number} свободен')
+                    Table.tables[number] = None
+                    Table.guest = None
 
 
 # Создание столов
@@ -76,3 +83,5 @@ cafe = Cafe(*tables)
 cafe.guest_arrival(*guests)
 # Обслуживание гостей
 cafe.discuss_guests()
+# Проверка на наличие гостей за столами
+print(Table.tables)
