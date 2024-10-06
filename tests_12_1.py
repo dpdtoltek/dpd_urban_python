@@ -22,8 +22,6 @@ class RunnerTest(unittest.TestCase):
             self.name1.run()
         for j in range(10):
             self.name2.walk()
-        # self.distance1 = (self.name1.run() for i in range(10))
-        # self.distance2 = (self.name2.walk() for i in range(10))
         self.assertNotEqual(self.name1.distance, self.name2.distance)
 
 
