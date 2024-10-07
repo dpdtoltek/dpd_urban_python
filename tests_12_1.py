@@ -20,7 +20,6 @@ class RunnerTest(unittest.TestCase):
         self.name2 = runner.Runner('Mary')
         for i in range(10):
             self.name1.run()
-        for j in range(10):
             self.name2.walk()
         self.assertNotEqual(self.name1.distance, self.name2.distance)
 
