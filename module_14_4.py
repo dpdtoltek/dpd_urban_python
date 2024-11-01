@@ -50,10 +50,14 @@ async def main_menu(message):
 
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
-    pr = [prod for prod in products]
-    for i in range(1, 5):
-        with open(f'images/{i}.jpg', 'rb') as img:
-            await message.answer_photo(img, f'''Название: {pr[i-1][1]} | Описание: {pr[i-1][2]} | Цена: {pr[i-1][3]}''')
+    for i in range(1, len(pr)+1):
+        try:
+            with open(f'images/{i}.jpg', 'rb') as img:
+                await message.answer_photo(img, f'Название: {pr[i-1][1]} | Описание: {pr[i-1][2]} | Цена: {pr[i-1][3]}')
+        except FileNotFoundError:
+            print(f'Файл {i} не найден!')
+            await message.answer(f'Изображение временно отсутствует.\n'
+                                 f'Название: {pr[i - 1][1]} | Описание: {pr[i - 1][2]} | Цена: {pr[i - 1][3]}')
     await message.answer('Выберите продукт для покупки:', reply_markup=kb_in2)
 
 
@@ -119,5 +123,6 @@ async def all_messages(message):
 
 
 if __name__ == '__main__':
-    products = get_all_products()
+    initiate_db()
+    pr = get_all_products()
     executor.start_polling(dp, skip_updates=True)
